@@ -35,8 +35,8 @@ I’m a markdown lover and ADHD ridden fool who will spend too long playing with
 
 ## Running ToDo
 
-- [ ] Create directory and Git repository
-- [ ] Create README
+- [x] Create directory and Git repository
+- [x] Create README
 - [ ] Create Jinja Base Template
 - [ ] Create LaTeX Base Template
 
