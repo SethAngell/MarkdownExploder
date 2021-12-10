@@ -2,7 +2,8 @@ import os
 import shutil
 import glob
 import subprocess
-
+from jinja2 import Template
+import time
 
 class DirectoryCrawler(object):
 
@@ -93,6 +94,10 @@ class MarkdownExploder(object):
 
         self.gather_data()
 
+    def __del__(self):
+        print('cleaning up')
+        self.delete_staging()
+
     def gather_data(self):
         self.db_crawler = DirectoryCrawler(self.content_dir)
         self.data = self.db_crawler.get_markdown_content()
@@ -107,14 +112,16 @@ class MarkdownExploder(object):
             self.db_crawler.create_directory(self.staging_dir)
 
     def compile_markdown_files_into_master_document(self):
-        if self.staging_dir is None:
+        if self.staging_dir == None:
             self.generate_staging()
 
-        print(self.data, self.sequence)
+        master_name = f'{self.staging_dir}/complete_document.md'
 
-        with open(f'{self.staging_dir}/complete_document.md', 'w') as outfile:
+        with open(master_name, 'w') as outfile:
             for item in self.sequence:
                 outfile.write(f'{self.data[item]}\n')
+
+        return master_name
 
     def call_pandoc(self, source_format, target_format, origin, destination, fragment=False):
         # pandoc test1.md -f markdown -t latex -s -o test1.tex
@@ -130,13 +137,50 @@ class MarkdownExploder(object):
                                         stderr=subprocess.PIPE)
     
     def convert_markdown_content_to_latex(self):
-        if self.staging_dir == None:
-            self.generate_staging()
 
         files_to_convert = [(f'{self.content_dir}/{path}.md', f'{self.staging_dir}/{path}.tex') for path in self.data.keys()]
 
         for file in files_to_convert:
             self.call_pandoc('markdown', 'latex', file[0], file[1])
+
+    def generate_homepage(self):
+        # Cleanup Beforehand
+        os.remove('home.html')
+
+        # Compile markdown into one and convert to html snippet
+        complete_md_content_path = self.compile_markdown_files_into_master_document()
+        self.call_pandoc('markdown', 'html', complete_md_content_path, complete_md_content_path.replace('.md', '.html'))
+
+        # Allow 10 seconds for all pandoc commands to complete
+        timer = 0
+        while (len(glob.glob("staging/*.html")) < 1) and (timer < 10):
+            timer += 1
+            time.sleep(1)
+
+        if len(glob.glob("staging/*.html")) == 0:
+            raise RuntimeError('Pandoc call seems to have failed. complete_document.html never generated')
+
+        # Grab template content
+        sidebar_items = [' '.join(item.split('_')).upper() for item in self.sequence]
+        home_content = ''
+        with open(complete_md_content_path.replace('.md', '.html'), "r") as ifile:
+            home_content = ifile.read()
+
+        j_template = ''
+        with open('templates/home.html', 'r') as ifile:
+            j_template = ifile.read()
+
+        home = Template(j_template)
+
+        home.stream(section_list=sidebar_items, content=home_content).dump('home.html')
+
+    def delete_staging(self):
+        self.db_crawler.destroy_directory(self.staging_dir, False)
+
+
+
+
+    
 
 
                 
@@ -152,4 +196,7 @@ test.get_sequence('content')
 MD = MarkdownExploder('content')
 MD.compile_markdown_files_into_master_document()
 MD.convert_markdown_content_to_latex()
+MD.generate_homepage()
+MD.delete_staging()
+
 
