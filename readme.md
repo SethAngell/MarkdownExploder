@@ -40,3 +40,6 @@ I’m a markdown lover and ADHD ridden fool who will spend too long playing with
 - [ ] Create Jinja Base Template
 - [ ] Create LaTeX Base Template
 
+## Preprocessing Workflow
+![A basic state diagram](/assets/PythonPreprocessingPipeline.png)
+
