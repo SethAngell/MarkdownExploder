@@ -37,8 +37,18 @@ I’m a markdown lover and ADHD ridden fool who will spend too long playing with
 
 - [x] Create directory and Git repository
 - [x] Create README
-- [ ] Create Jinja Base Template
+- [x] Create Jinja Base Template
 - [ ] Create LaTeX Base Template
+- [ ] Find and include all commands to install LaTeX into Build container
+- [x] Create python functionality for creating and destroying new directories
+- [x] Create python functionality for ingesting all data from the content directory
+- [x] Create python functionality for calling pandoc commands
+- [x] Create python functionality for concatenating markdown documents into single file
+- [x] Create python functionality for converting all markdown content into LaTeX fragments
+- [ ] Create python functionality for compiling LaTeX documents to pdfs
+- [ ] Create python functionality for compiling final html
+- [ ] BONUS! Dockerfile.Prod which also runs letsencrypt and stores it on the host 
+
 
 ## Preprocessing Workflow
 ![A basic state diagram](/assets/PythonPreprocessingPipeline.png)
