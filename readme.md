@@ -46,7 +46,7 @@ I’m a markdown lover and ADHD ridden fool who will spend too long playing with
 - [x] Create python functionality for concatenating markdown documents into single file
 - [x] Create python functionality for converting all markdown content into LaTeX fragments
 - [ ] Create python functionality for compiling LaTeX documents to pdfs
-- [ ] Create python functionality for compiling final html
+- [x] Create python functionality for compiling final html
 - [ ] BONUS! Dockerfile.Prod which also runs letsencrypt and stores it on the host 
 
 

@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  capstone_site:
+    build: .
+    container_name: capstone_site
+    ports:
+      - 8080:80
+      - 8081:443

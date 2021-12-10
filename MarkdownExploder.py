@@ -145,7 +145,8 @@ class MarkdownExploder(object):
 
     def generate_homepage(self):
         # Cleanup Beforehand
-        os.remove('home.html')
+        if os.path.exists('home.html'):
+            os.remove('home.html')
 
         # Compile markdown into one and convert to html snippet
         complete_md_content_path = self.compile_markdown_files_into_master_document()
@@ -174,29 +175,39 @@ class MarkdownExploder(object):
 
         home.stream(section_list=sidebar_items, content=home_content).dump('home.html')
 
+    def generate_latex_document(self):
+        # cleanup beforehand
+        if os.path.exists('assets/SethAngellCapstone.pdf'):
+            os.remove('assets/SethAngellCapstone.pdf')
+
+        # Generate LaTeX Files
+        self.convert_markdown_content_to_latex()
+        time.sleep(10)
+
+        # Allow 10 seconds for all pandoc commands to complete
+        timer = 0
+        while (len(glob.glob("staging/*.tex")) < 6) and (timer < 10):
+            timer += 1
+            time.sleep(1)
+
+        if len(glob.glob("staging/*.tex")) == 0:
+            raise RuntimeError('Pandoc call seems to have failed. No LaTeX documents were ever generated')
+
+        # Create PDF
+        # pdflatex -output-directory=DIR -jobname=STRING FILE
+        process = subprocess.Popen(['pdflatex', '-output-directory=assets', 
+                                    '-jobname=SethAngellCapstone', 'templates/capstoneSeth.tex'], 
+                                        stdout=subprocess.PIPE, 
+                                        stderr=subprocess.PIPE)
+
+        # TODO: Figure out why pdflatex isn't working
     def delete_staging(self):
         self.db_crawler.destroy_directory(self.staging_dir, False)
 
 
-
-
-    
-
-
-                
-
-
-
-test = DirectoryCrawler('content')
-
-test.grab_all_markdown_file_paths('content', 5)
-
-test.get_sequence('content')
-
-MD = MarkdownExploder('content')
-MD.compile_markdown_files_into_master_document()
-MD.convert_markdown_content_to_latex()
-MD.generate_homepage()
-MD.delete_staging()
+if __name__ == "__main__":
+    MD = MarkdownExploder('content')
+    MD.generate_homepage()
+    MD.generate_latex_document()
 
 

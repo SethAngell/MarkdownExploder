@@ -1,0 +1,164 @@
+
+%
+% thesis.tex
+%
+% Modified from the Clemson Template
+% Master's Thesis/Ph.D. Dissertation Template
+% Clemson University
+%
+%
+% The document guidelines say the font can be between 10pt and 12pt.
+% Specify whatever you want it to be here.
+%
+\documentclass[10pt]{templates/ClemsonThesis}
+
+%
+% Use any additional packages you might need
+%
+%\usepackage[table]{xcolor}
+%\documentclass[xcolor=table]{beamer}
+%\usepackage[table]{xcolor}
+
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+% Please add the following required packages to your document preamble:
+%\usepackage{multirow}
+%\usepackage{colortbl}
+%% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+% \usepackage[normalem]{ulem}
+% \useunder{\uline}{\ul}{}
+
+%
+% Make the document your own -- fill in these values to reflect the type of
+% document you are writing.
+%
+\title{Scalable Session Monitoring: A Unity3D Framework Proposal}
+\department{Cameron School of Business}
+\documentType{Capstone}
+\major{Computer Science}
+\degree{Masters of Science in Computer Science and Information Systems}
+\graduationMonth{May}
+\graduationYear{2022}
+\author{Seth Angell}
+\committeeChair{Dr. Toni Pence}
+\committeeMemberOne{Dr. Ron Vetter}
+\committeeMemberTwo{Dr. Douglas Kline}
+
+%
+% PDF Setup -- most of this you do not need to touch
+%
+\hypersetup{
+    colorlinks,
+    linkcolor={black},
+    citecolor={black},
+    filecolor={black},
+    urlcolor={black},
+    pdftitle={\theTitle},
+    pdfauthor={\theAuthor},
+    pdfsubject={\theDocumentType},
+    pdfkeywords={University of North Carolina Wilmington, \theDepartment, \theDocumentType, \theMajor, \theDegree},
+    pdfstartpage={1},
+}
+
+
+%
+% User-specified command definitions/redefinitions
+%
+%% \newcommand{\cplusplus}{{\rm C\raise.5ex\hbox{\small ++}}}
+%% \newcommand{\num}[1]{\mbox{(\textit{#1})}}
+%% \renewcommand{\ttdefault}{pcr}
+%% \renewcommand\lstlistlistingname{List of Listings}
+
+\usepackage[justification=centering]{caption}
+
+\begin{document}
+%  ============================================================================
+    \frontmatter % Begin front matter (pages are numbered with Roman numerals)
+%  ============================================================================
+
+    \addtotoc{Title Page}{\maketitle}          % Generate the title page
+    \doublespacing                             % Text should be double spaced
+    \setcounter{page}{2}                       % Abstract begins on page 2
+    % \addtotoc{Abstract}{\input{abstract.tex}}  % Generate the abstract
+
+    %
+    % The dedication page is optional.  Comment out this line if you do not
+    % want to include this page.
+    %
+    %\addtotoc{Dedication}{\input{dedication.tex}}
+
+    %
+    % The acknowledgment page is optional.  Comment out this line if you do
+    % not want to include this page.
+    %
+    %\addtotoc{Acknowledgments}{\input{acknowledgments.tex}}
+
+    \singlespacing                             % Single space the lists
+    \tableofcontents \clearpage                % Generate the Table of Contents
+
+    %
+    % REMEMBER: Review your caption listings in the genrated lists
+    %           and make sure they include '\newline' commands as necessary.
+    %           See the README for further information.
+    %
+    %\addtotoc{List of Tables}{\listoftables}   % Generate the List of Tables
+    %\addtotoc{List of Figures}{\listoffigures} % Generate the List of Figures
+
+    %
+    % Include other optional lists.  Computer science, for example, would
+    % likely include a 'List of Listings' (and would \usepackage{listings}
+    % and \renewcommand\lstlistlistingname{List of Listings}).
+    %
+    %% \addtotoc{List of Listings}{\lstlistoflistings}
+
+
+
+%  ===========================================================================
+    \mainmatter % Begin main matter (pages are numbered with Arabic numerals)
+%  ===========================================================================
+    \doublespacing % Text should be double spaced
+
+    %
+    % Here we have each chapter in a separate file.  Name these as you choose,
+    % and include them in the order you want them to appear.  Be sure to use
+    % the \inputfile command.
+    %
+    \inputfile{staging/introduction.tex}
+    \inputfile{staging/background.tex}
+    \inputfile{staging/proposal.tex}
+    \inputfile{staging/predictions.tex}
+    \inputfile{staging/testing_plan.tex}
+    \inputfile{staging/results.tex}
+    \inputfile{staging/conclusion.tex}
+    % \inputfile{results.tex}
+    %\inputfile{chapter_experiment4.tex}	
+    %\inputfile{chapter_experiment5.tex}
+    %
+    % The appendices are optional.  This is the format for two or more.
+    % If you do not wish to include an appendix, comment out these lines.
+    % If you want just one, see the formatting guidelines.
+    %
+%     \begin{appendices}
+%         \begin{subappendices}
+%         \inputfile{glossary.tex}
+% %         \inputfile{appendixB.tex}
+% %         \inputfile{appendixC.tex}
+% %	  \inputfile{appendixD.tex}
+% %	  \inputfile{appendixE.tex}
+%         \end{subappendices}
+%     \end{appendices}
+
+
+
+    \singlespacing                             % Single space the Bibliography
+
+  
+   \bibliographystyle{apalike}
+   \addtotoc{Bibliography}{\bibliography{works_cited}}
+
+\end{document}
