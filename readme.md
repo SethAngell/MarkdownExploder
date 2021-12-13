@@ -1,14 +1,17 @@
-# Markdown → LaTeX + HTML Workflow
+# Markdown Exploder
+### A Markdown → LaTeX + HTML Workflow
 
 ## Use Case
 
-I’m a markdown lover and ADHD ridden fool who will spend too long playing with systems and not enough time actually creating content. However I have people who expect my content to be in a certain form. For this reason, I’d like to create a workflow which allows me to write in basic markdown format from a text editor or terminal interface, and then with a single command convert this into all the desired formats.
+I love markdown for it's simplicity and lack of distractions. Over the years, it has become a stronghold for me to fall back to when I feel like I'm overwhelmed or distracted. When it came time to draft out the first version of my capstone thesis, I retreated all the way into a `vim introduction.md` as a way to shut out everything except for my work. Except there was 1 problem, I needed to convert 8 different markdown files into a single LaTeX report. Because automating annoying tasks in 99% of the reason I got into computer science, enter...__Markdown Exploder.__
+
+Markdown Exploder is a simple workflow enabled by _python, pandoc, and LaTex_. Sections are written in markdown, organized with a single `sequence.txt` file, and then compiled into a static html page and LaTeX report.
 
 ## Ideal Workflow
 
-1. Create a LaTeX document which provides a basic structure for my document and expects a collection of files using the \input directive
-2. Create an HTML file which basically contains everything for the webpage and expects only a block of HTML which represents my paper itself
-3. Write a bunch of markdown directly in a directory, into a collection of files representing high level sections of my Capstone Proposal (Introduction, Methodology, etc)
+1. Create a LaTeX document which provides a basic structure for my document and expects a collection of files using the \input directive.
+2. Create an HTML homepage template which expects a block of HTML content and some navigation tags, representing my paper.
+3. Write a bunch of markdown in a directory organized as a collection of high level sections of my Capstone Proposal (Introduction, Methodology, etc)
 4. Run a command which…
    1. converts the individual markdown files into their equivalent LaTeX form
    2. compiles all of the markdown file into a single file
