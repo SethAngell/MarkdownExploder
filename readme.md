@@ -38,18 +38,23 @@ I’m a markdown lover and ADHD ridden fool who will spend too long playing with
 - [x] Create directory and Git repository
 - [x] Create README
 - [x] Create Jinja Base Template
-- [ ] Create LaTeX Base Template
-- [ ] Find and include all commands to install LaTeX into Build container
+- [x] Create LaTeX Base Template
+- [x] Find and include all commands to install LaTeX into Build container
 - [x] Create python functionality for creating and destroying new directories
 - [x] Create python functionality for ingesting all data from the content directory
 - [x] Create python functionality for calling pandoc commands
 - [x] Create python functionality for concatenating markdown documents into single file
 - [x] Create python functionality for converting all markdown content into LaTeX fragments
-- [ ] Create python functionality for compiling LaTeX documents to pdfs
+- [x] Create python functionality for compiling LaTeX documents to pdfs
 - [x] Create python functionality for compiling final html
 - [ ] BONUS! Dockerfile.Prod which also runs letsencrypt and stores it on the host 
+- [ ] BONUS! Github Actions CI to automatically deploy new changes on every push
 
+## MarkdownExploder Writing Workflow
+![A state diagram of the intended writing workflow utilizing Markdown Exploder](/assets/MarkdownExploderWorkflow.png)
 
 ## Preprocessing Workflow
 ![A basic state diagram](/assets/PythonPreprocessingPipeline.png)
+
+
 
