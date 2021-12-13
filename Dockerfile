@@ -2,7 +2,7 @@ FROM python:3.9.5-slim-buster as build
 
 # Install Libraries
 RUN apt-get update \
-  && apt-get -y install pandoc texlive-latex-base\
+  && apt-get -y install pandoc texlive-latex-extra\
   && apt-get clean
 
 # Set working directory for all following in container commands

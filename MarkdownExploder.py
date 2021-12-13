@@ -128,7 +128,7 @@ class MarkdownExploder(object):
         if not fragment:
             process = subprocess.Popen(['pandoc', origin, '-f', source_format, 
                                         '-t', target_format, '-o', 
-                                        destination,],
+                                        destination, '--top-level-division=chapter'],
                                         stdout=subprocess.PIPE, 
                                         stderr=subprocess.PIPE)
         else:
@@ -199,6 +199,18 @@ class MarkdownExploder(object):
                                     '-jobname=SethAngellCapstone', 'templates/capstoneSeth.tex'], 
                                         stdout=subprocess.PIPE, 
                                         stderr=subprocess.PIPE)
+
+        stdout, stderr = process.communicate()
+
+        with open('assets/PDFGenerationOutput.log', 'w') as outfile:
+            outfile.write(f'{stdout}\n')
+            outfile.write(f'{stderr}\n')
+
+        for file in [f'assets/SethAngellCapstone{ending}' for ending in ['.aux', '.out', '.toc', '.log']]:
+            print(file)
+            if os.path.exists(file):
+                os.remove(file)
+
 
         # TODO: Figure out why pdflatex isn't working
     def delete_staging(self):
