@@ -12,7 +12,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # Grab files
-COPY ../ /usr/src/app
+COPY ./ /usr/src/app
 
 # Install requirements
 RUN pip install -r requirements.txt
