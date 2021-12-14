@@ -168,7 +168,7 @@ class MarkdownExploder(object):
             home_content = ifile.read()
 
         j_template = ''
-        with open('templates/home.html', 'r') as ifile:
+        with open('templates/home_template.html', 'r') as ifile:
             j_template = ifile.read()
 
         home = Template(j_template)
