@@ -1,7 +1,9 @@
 version: '3.8'
 services:
   capstone_site:
-    build: .
+    build: 
+      context: ../.
+      dockerfile: Dockerfile.prod
     container_name: capstone_site
     ports:
       - 8080:80
