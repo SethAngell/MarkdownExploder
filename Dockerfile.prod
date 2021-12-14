@@ -23,7 +23,7 @@ RUN python MarkdownExploder.py
 # Start with Nginx As our base
 FROM nginx:latest
 
-COPY ./nginx/prod.nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./app/nginx/prod.nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /usr/src/app /usr/share/nginx/html
 
 
