@@ -1,0 +1,7 @@
+# ignore the git folder
+.git
+Dockerfile
+docker-compose.yml
+.ci
+env
+.gitignore
