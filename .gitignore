@@ -194,4 +194,8 @@ home.html
 
 .ci/data/certbot/*
 
+MarkdownExploder.logs
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,python
+
+.env
