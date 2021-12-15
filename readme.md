@@ -54,10 +54,10 @@ Markdown Exploder is a simple workflow enabled by _python, pandoc, and LaTex_. S
 - [ ] BONUS! Github Actions CI to automatically deploy new changes on every push
 
 ## MarkdownExploder Writing Workflow
-![A state diagram of the intended writing workflow utilizing Markdown Exploder](/assets/MarkdownExploderWorkflow.png)
+![A state diagram of the intended writing workflow utilizing Markdown Exploder](/app/assets/MarkdownExploderWorkflow.png)
 
 ## Preprocessing Workflow
-![A basic state diagram](/assets/PythonPreprocessingPipeline.png)
+![A basic state diagram](/app/assets/PythonPreprocessingPipeline.png)
 
 
 
