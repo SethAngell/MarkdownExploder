@@ -1,6 +1,9 @@
 # Markdown Exploder
 ### A Markdown → LaTeX + HTML Workflow
 
+[![deploy](https://github.com/SethAngell/MarkdownExploder/actions/workflows/deploy.yml/badge.svg)](https://github.com/UNCWMixedReality/VASCTeacherPortal/actions/workflows/deploy.yml)
+
+
 ## Use Case
 
 I love markdown for it's simplicity and lack of distractions. Over the years, it has become a stronghold for me to fall back to when I feel like I'm overwhelmed or distracted. When it came time to draft out the first version of my capstone thesis, I retreated all the way into a `vim introduction.md` as a way to shut out everything except for my work. Except there was 1 problem, I needed to convert 8 different markdown files into a single LaTeX report. Because automating annoying tasks in 99% of the reason I got into computer science, enter...__Markdown Exploder.__
@@ -50,7 +53,7 @@ Markdown Exploder is a simple workflow enabled by _python, pandoc, and LaTex_. S
 - [x] Create python functionality for converting all markdown content into LaTeX fragments
 - [x] Create python functionality for compiling LaTeX documents to pdfs
 - [x] Create python functionality for compiling final html
-- [ ] BONUS! Dockerfile.Prod which also runs letsencrypt and stores it on the host 
+- [x] BONUS! Dockerfile.Prod which also runs letsencrypt and stores it on the host 
 - [ ] BONUS! Github Actions CI to automatically deploy new changes on every push
 
 ## MarkdownExploder Writing Workflow
