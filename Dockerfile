@@ -7,7 +7,7 @@ ENV loki_pass ${loki_pass}
 
 # Install Libraries
 RUN apt-get update \
-  && apt-get -y install pandoc texlive-latex-extra\
+  && apt-get -y install pandoc texlive-latex-extra nano\
   && apt-get clean
 
 # Set working directory for all following in container commands
