@@ -1,1 +1,1 @@
-docker-compose build --progress=plain --no-cache --build-arg loki_user=${loki_user} --build-arg loki_pass=${loki_pass}
+docker-compose build --no-cache --build-arg loki_user=${loki_user} --build-arg loki_pass=${loki_pass}
