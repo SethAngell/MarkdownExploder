@@ -1,9 +1,11 @@
 # Pull new version
 cd ~/capstone_site;
+pwd;
 git pull;
 
 # build and deploy
 cd .ci;
+pwd;
 docker-compose build --no-cache --build-arg loki_user=${loki_user} --build-arg loki_pass=${loki_pass};
 docker-compose up -d;
 
