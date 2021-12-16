@@ -10,6 +10,8 @@ I love markdown for it's simplicity and lack of distractions. Over the years, it
 
 Markdown Exploder is a simple workflow enabled by _python, pandoc, and LaTex_. Sections are written in markdown, organized with a single `sequence.txt` file, and then compiled into a static html page and LaTeX report.
 
+You can see a working version (with a very sparse paper) at [capstone.sethangell.com](capstone.sethangell.com)!
+
 ## Ideal Workflow
 
 1. Create a LaTeX document which provides a basic structure for my document and expects a collection of files using the \input directive.
@@ -54,7 +56,7 @@ Markdown Exploder is a simple workflow enabled by _python, pandoc, and LaTex_. S
 - [x] Create python functionality for compiling LaTeX documents to pdfs
 - [x] Create python functionality for compiling final html
 - [x] BONUS! Dockerfile.Prod which also runs letsencrypt and stores it on the host 
-- [ ] BONUS! Github Actions CI to automatically deploy new changes on every push
+- [x] BONUS! Github Actions CI to automatically deploy new changes on every push
 
 ## MarkdownExploder Writing Workflow
 ![A state diagram of the intended writing workflow utilizing Markdown Exploder](/app/assets/MarkdownExploderWorkflow.png)
