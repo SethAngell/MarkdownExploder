@@ -15,6 +15,7 @@ WORKDIR /usr/src/app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV DEBUG 1
 
 # Grab files
 COPY ./app /usr/src/app
