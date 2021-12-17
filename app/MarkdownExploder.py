@@ -276,7 +276,7 @@ def generate_logging_handler():
     print(f'{loki_user = }, {loki_pass = }')
     print(f'{"="*120}')
     handler = logging_loki.LokiHandler(
-    url="https://logs-prod-us-central1.grafana.net/loki/api/v1/push", 
+    url="http://http://150.136.244.134:3100/loki/api/v1/push", 
     tags={"application": "MarkdownExploder"},
     auth=(loki_user, loki_pass),
     version="1",
