@@ -17,11 +17,12 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV DEBUG True
 
+# Install requirements
+COPY ./app/requirements.txt .
+RUN pip install -r requirements.txt
+
 # Grab files
 COPY ./app /usr/src/app
-
-# Install requirements
-RUN pip install -r requirements.txt
 
 # Compile content
 RUN python MarkdownExploder.py

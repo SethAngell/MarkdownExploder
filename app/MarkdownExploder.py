@@ -92,6 +92,21 @@ class DirectoryCrawler(object):
 
             return sequence
 
+    def get_title(self, content_directory=None):
+
+        if content_directory != None:
+            title = self.ingest_data(f'{content_directory}/title.txt')
+            
+            self.logger.debug(f'[DC] Extracted the following title from specified content dir {content_directory} : {title = }')
+
+            return title
+        else:
+            title = self.ingest_data(f'{self.content_dir}/title.txt')
+
+            self.logger.debug(f'[DC] Extracted the following title from the internal content dir {self.content_dir} : {title = }')
+
+            return title
+
 
     def get_markdown_content(self):
         self.logger.debug('[DC] Grabbing all available markdown content')
@@ -106,6 +121,7 @@ class MarkdownExploder(object):
         self.data = None
         self.sequence = None
         self.staging_dir = None
+        self.title = None
 
         self.logger.debug(f'[ME] Markdown Exploder Initalized with content_dir of {content_dir}. self.content_dir is {self.content_dir}')
         self.logger.info(f'[ME] Markdown Exploder initalized: Now grabbing data')
@@ -124,6 +140,7 @@ class MarkdownExploder(object):
         self.db_crawler = DirectoryCrawler(self.content_dir, self.logger)
         self.data = self.db_crawler.get_markdown_content()
         self.sequence = self.db_crawler.get_sequence()
+        self.title = self.db_crawler.get_title()
 
         self.logger.debug(f'[ME] Initial data gathering complete. Derived sequence is {self.sequence}. Length of data keys is {len(self.data.keys())}')
 
@@ -215,6 +232,10 @@ class MarkdownExploder(object):
         with open(complete_md_content_path.replace('.md', '.html'), "r") as ifile:
             home_content = ifile.read()
 
+        home_content = home_content.replace("<p>", '<p class="content">')
+        home_content = home_content.replace("<li>", '<li class="content">')
+
+        home_content = f'<h1>{self.title["title"]}</h1>' + home_content
         self.logger.debug("[ME] Grabbing template from /templates")
         j_template = ''
         with open('templates/home_template.html', 'r') as ifile:
@@ -240,7 +261,6 @@ class MarkdownExploder(object):
 
         # Generate LaTeX Files
         self.convert_markdown_content_to_latex()
-        time.sleep(10)
 
         # Allow 10 seconds for all pandoc commands to complete
         timer = 0
@@ -267,13 +287,13 @@ class MarkdownExploder(object):
                 self.logger.debug(f'[ME] Deleted {file}')
 
     def delete_staging(self):
-        self.db_crawler.destroy_directory(self.staging_dir, False)
+         self.db_crawler.destroy_directory(self.staging_dir, False)
 
 def generate_logging_handler():
     print(f'{"="*120}')
     loki_user = os.getenv('loki_user')
     loki_pass = os.getenv('loki_pass')
-    print(f'{loki_user = }, {loki_pass = }')
+    print(f'loki_user = {"*" * len(loki_user)}{loki_user[-4:]} loki_pass = {"*" * len(loki_pass)}{loki_pass[-4:]}}}')
     print(f'{"="*120}')
     handler = logging_loki.LokiHandler(
     url="https://loki.logs.doublel.studio/loki/api/v1/push", 
