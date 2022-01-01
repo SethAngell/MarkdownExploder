@@ -293,7 +293,7 @@ def generate_logging_handler():
     print(f'{"="*120}')
     loki_user = os.getenv('loki_user')
     loki_pass = os.getenv('loki_pass')
-    print(f'loki_user = {"*" * len(loki_user)}{loki_user[-4:]} loki_pass = {"*" * len(loki_pass)}{loki_pass[-4:]}}}')
+    print(f'loki_user = {"*" * len(loki_user)}{loki_user[-4:]} loki_pass = {"*" * len(loki_pass)}{loki_pass[-4:]}')
     print(f'{"="*120}')
     handler = logging_loki.LokiHandler(
     url="https://loki.logs.doublel.studio/loki/api/v1/push", 
