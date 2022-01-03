@@ -1,8 +1,12 @@
+# Stop the current version of the site
+docker rm -f capstone_site
+
 # Pull new version
 cd ~/capstone_site && git pull;
 
 # build and deploy
 cd .ci && docker-compose build --no-cache --build-arg loki_user=${loki_user} --build-arg loki_pass=${loki_pass};
+pwd > 'pwd.log'
 cd .ci && docker-compose up -d;
 
 # Notify that new version is up

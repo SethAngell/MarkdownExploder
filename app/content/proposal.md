@@ -170,7 +170,7 @@ servers should also notify the UserManagementAPI when the last user
 disconnects from the session, so that the session can be marked as
 inactive in the database.
 
-![Current ERD as of Nov 19. 2021](assets/UserManagementERD.png){width="textwidth"}
+![Current ERD as of Nov 19. 2021](assets/UserManagementERD.png){width="80%"}
 
 ### WebRTC Media Server
 

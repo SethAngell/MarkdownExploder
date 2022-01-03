@@ -5,6 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- Library Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+
     <!-- Styling -->
     <style>
       .content {
@@ -22,9 +30,12 @@
 
     <title>Working Capstone</title>
   </head>
-  <body class="min-vh-100">
+  <body class="vh-100">
     <!-- Formatting for super small screens (mobile, tablet, split screen on smaller displays)-->
-    <div class="container-fluid d-flex d-lg-none flex-column min-vh-100 px-0">
+    <div
+      id="small_view"
+      class="container-fluid d-flex d-lg-none flex-column min-vh-100 px-0"
+    >
       <nav
         class="
           navbar
@@ -103,13 +114,13 @@
           px-5
         "
       >
-        {{ content | safe }}
+        {{ mobile_content | safe }}
       </div>
     </div>
 
     <!-- Formatting for split screen on standard displays-->
 
-    <div class="container-fluid d-none d-lg-flex flex-row min-vh-100 px-0">
+    <div class="container-fluid d-none d-lg-flex flex-row px-0">
       <div
         class="
           d-lg-flex d-xxl-none
@@ -117,71 +128,87 @@
           p-3
           text-white
           bg-dark
+          justify-content-between
+          vh-100
+          sticky-top
         "
         style="width: 20%"
       >
-        <a
-          href="/"
-          class="
-            d-flex
-            align-items-center
-            mb-3 mb-md-0
-            me-md-auto
-            text-white text-decoration-none
-          "
-        >
-          <span class="fs-4">Masters Capstone</span>
-        </a>
-        <p class="mt-0 pt-0">A work in progress</p>
-
-        <p class="mt-1 mb-0"><b>Prefer LaTeX?</b></p>
-        <a
-          href="/assets/SethAngellCapstone.pdf"
-          class="
-            d-flex
-            align-items-center
-            mb-3 mb-md-0
-            me-md-auto
-            text-white text-decoration-none
-          "
-          download
-        >
-          <svg
-            width="16"
-            height="16"
-            aria-hidden="true"
-            focusable="false"
-            data-prefix="fas"
-            data-icon="file-download"
-            class="bi me-2 svg-inline--fa fa-file-download fa-w-12"
-            role="img"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 384 512"
+        <div>
+          <a
+            href="/"
+            class="
+              d-flex
+              align-items-center
+              mb-3 mb-md-0
+              me-md-auto
+              text-white text-decoration-none
+            "
           >
-            <path
-              fill="currentColor"
-              d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm76.45 211.36l-96.42 95.7c-6.65 6.61-17.39 6.61-24.04 0l-96.42-95.7C73.42 337.29 80.54 320 94.82 320H160v-80c0-8.84 7.16-16 16-16h32c8.84 0 16 7.16 16 16v80h65.18c14.28 0 21.4 17.29 11.27 27.36zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"
-            ></path>
-          </svg>
-          <span class="fs-6">Download PDF</span>
-        </a>
-        <p class="mt-5 mb-0"><b>Table Of Contents</b></p>
-        <hr />
-        <ul class="nav nav-pills flex-column mb-auto">
-          {% for section in section_list %}
-          <li class="nav-item">
-            <a
-              href="#{{ section.replace(' ', '-').lower() }}"
-              class="nav-link"
-              aria-current="page"
-            >
-              <strong>{{ section }}</strong>
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
+            <span class="fs-4">Masters Capstone</span>
+          </a>
+          <p class="mt-0 pt-0">A work in progress</p>
 
-        <div class="dropdown fixed-bottom ms-3 mb-2">
+          <p class="mt-1 mb-0"><b>Prefer LaTeX?</b></p>
+          <a
+            href="/assets/SethAngellCapstone.pdf"
+            class="
+              d-flex
+              align-items-center
+              mb-3 mb-md-0
+              me-md-auto
+              text-white text-decoration-none
+            "
+            download
+          >
+            <svg
+              width="16"
+              height="16"
+              aria-hidden="true"
+              focusable="false"
+              data-prefix="fas"
+              data-icon="file-download"
+              class="bi me-2 svg-inline--fa fa-file-download fa-w-12"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 384 512"
+            >
+              <path
+                fill="currentColor"
+                d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm76.45 211.36l-96.42 95.7c-6.65 6.61-17.39 6.61-24.04 0l-96.42-95.7C73.42 337.29 80.54 320 94.82 320H160v-80c0-8.84 7.16-16 16-16h32c8.84 0 16 7.16 16 16v80h65.18c14.28 0 21.4 17.29 11.27 27.36zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"
+              ></path>
+            </svg>
+            <span class="fs-6">Download PDF</span>
+          </a>
+          <p class="mt-5 mb-0"><b>Table Of Contents</b></p>
+          <hr />
+          <ul class="nav nav-pills flex-column mb-auto">
+            {% for section in section_list %}
+            <li class="nav-item">
+              <a
+                id="{{ section.replace(' ', '-').lower() }}-link"
+                href="#{{ section.replace(' ', '-').lower() }}"
+                class="nav-link"
+                aria-current="page"
+              >
+                <strong>{{ section }}</strong>
+              </a>
+              <script>
+                $("#{{ section.replace(' ', '-').lower() }}-link").click(
+                  function () {
+                    var container = document.getElementById("content");
+                    var scrollTo = document.getElementById(
+                      "{{ section.replace(' ', '-').lower() }}"
+                    );
+                    container.scrollTop = scrollTo.offsetTop;
+                  }
+                );
+              </script>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="ms-3 mb-2">
           <hr />
           <div class="mb-3">
             <p class="text-muted mb-0">
@@ -230,70 +257,75 @@
           p-3
           text-white
           bg-dark
+          vh-100
+          sticky-top
+          justify-content-between
         "
         style="width: 15%"
       >
-        <a
-          href="/"
-          class="
-            d-flex
-            align-items-center
-            mb-3 mb-md-0
-            me-md-auto
-            text-white text-decoration-none
-          "
-        >
-          <span class="fs-4">Masters Capstone</span>
-        </a>
-        <p class="mt-0 pt-0">Very much a work in progress</p>
-
-        <p class="mt-1 mb-0"><b>Prefer LaTeX?</b></p>
-        <a
-          href="/assets/SethAngellCapstone.pdf"
-          class="
-            d-flex
-            align-items-center
-            mb-3 mb-md-0
-            me-md-auto
-            text-white text-decoration-none
-          "
-          download
-        >
-          <svg
-            width="16"
-            height="16"
-            aria-hidden="true"
-            focusable="false"
-            data-prefix="fas"
-            data-icon="file-download"
-            class="bi me-2 svg-inline--fa fa-file-download fa-w-12"
-            role="img"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 384 512"
+        <div>
+          <a
+            href="/"
+            class="
+              d-flex
+              align-items-center
+              mb-3 mb-md-0
+              me-md-auto
+              text-white text-decoration-none
+            "
           >
-            <path
-              fill="currentColor"
-              d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm76.45 211.36l-96.42 95.7c-6.65 6.61-17.39 6.61-24.04 0l-96.42-95.7C73.42 337.29 80.54 320 94.82 320H160v-80c0-8.84 7.16-16 16-16h32c8.84 0 16 7.16 16 16v80h65.18c14.28 0 21.4 17.29 11.27 27.36zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"
-            ></path>
-          </svg>
-          <span class="fs-6">Download PDF</span>
-        </a>
-        <p class="mt-5 mb-0"><b>Table Of Contents</b></p>
-        <hr />
-        <ul class="nav nav-pills flex-column mb-auto">
-          {% for section in section_list %}
-          <li class="nav-item">
-            <a
-              href="#{{ section.replace(' ', '-').lower() }}"
-              class="nav-link"
-              aria-current="page"
+            <span class="fs-4">Masters Capstone</span>
+          </a>
+          <p class="mt-0 pt-0">Very much a work in progress</p>
+
+          <p class="mt-1 mb-0"><b>Prefer LaTeX?</b></p>
+          <a
+            href="/assets/SethAngellCapstone.pdf"
+            class="
+              d-flex
+              align-items-center
+              mb-3 mb-md-0
+              me-md-auto
+              text-white text-decoration-none
+            "
+            download
+          >
+            <svg
+              width="16"
+              height="16"
+              aria-hidden="true"
+              focusable="false"
+              data-prefix="fas"
+              data-icon="file-download"
+              class="bi me-2 svg-inline--fa fa-file-download fa-w-12"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 384 512"
             >
-              <strong>{{ section }}</strong>
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
-        <div class="dropdown fixed-bottom ms-3 mb-2">
+              <path
+                fill="currentColor"
+                d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm76.45 211.36l-96.42 95.7c-6.65 6.61-17.39 6.61-24.04 0l-96.42-95.7C73.42 337.29 80.54 320 94.82 320H160v-80c0-8.84 7.16-16 16-16h32c8.84 0 16 7.16 16 16v80h65.18c14.28 0 21.4 17.29 11.27 27.36zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"
+              ></path>
+            </svg>
+            <span class="fs-6">Download PDF</span>
+          </a>
+          <p class="mt-5 mb-0"><b>Table Of Contents</b></p>
+          <hr />
+          <ul class="nav nav-pills flex-column mb-auto">
+            {% for section in section_list %}
+            <li class="nav-item">
+              <a
+                href="#{{ section.replace(' ', '-').lower() }}"
+                class="nav-link"
+                aria-current="page"
+              >
+                <strong>{{ section }}</strong>
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="fixed-bottom ms-3 mb-2">
           <hr />
           <div class="mb-3">
             <p class="text-muted mb-0">
@@ -337,13 +369,14 @@
       </div>
       <!-- TODO: Make this scrollable -->
       <div
+        id="content"
         class="
           container-fluid
           d-flex
           flex-column
           justify-content-start
           align-items-center
-          overflow-auto
+          overflow-scroll
           pt-2
           px-5
         "
@@ -351,13 +384,6 @@
         {{ content | safe }}
       </div>
     </div>
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"
-    ></script>
   </body>
 </html>
 <!---->

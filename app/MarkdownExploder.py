@@ -2,12 +2,12 @@ import os
 import shutil
 import glob
 import subprocess
-import copy
 from jinja2 import Template
 import time
 import logging    
 import logging_loki
-from sys import stdout
+import re
+
 
 
 class DirectoryCrawler(object):
@@ -235,6 +235,9 @@ class MarkdownExploder(object):
         home_content = home_content.replace("<p>", '<p class="content">')
         home_content = home_content.replace("<li>", '<li class="content">')
 
+        # Create duplicate version without IDs for mobile view 
+        mobile_content = re.sub("id=\"[a-zA-Z0-9]*[ ]*[a-zA-Z0-9]*\"", '', home_content)
+
         home_content = f'<h1>{self.title["title"]}</h1>' + home_content
         self.logger.debug("[ME] Grabbing template from /templates")
         j_template = ''
@@ -245,7 +248,7 @@ class MarkdownExploder(object):
         home = Template(j_template)
 
         self.logger.debug(f'[ME] Passing {sidebar_items = } and content = {home_content[:100]} to Jinja for creation')
-        home.stream(section_list=sidebar_items, content=home_content).dump('home.html')
+        home.stream(section_list=sidebar_items, content=home_content, mobile_content=mobile_content).dump('home.html')
 
         # logging test
         if os.path.exists('home.html'):
