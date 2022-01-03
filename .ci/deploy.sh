@@ -11,3 +11,4 @@ if curl 'https://capstone.sethangell.com'
 then curl -X POST -d "Body=New version of capstone.sethangell.com has been deployed" -d "From=$twilio_number" -d "To=$to_number" "https://api.twilio.com/2010-04-01/Accounts/$twilio_sid/Messages" -u "$twilio_sid:$twilio_token"
 # notify that the curl was not a success
 else curl -X POST -d "Body=The deployment of capstone.sethangell.com seems to have hit a snag" -d "From=$twilio_number" -d "To=$to_number" "https://api.twilio.com/2010-04-01/Accounts/$twilio_sid/Messages" -u "$twilio_sid:$twilio_token"
+fi
