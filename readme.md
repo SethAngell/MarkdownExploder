@@ -10,7 +10,7 @@ I love markdown for it's simplicity and lack of distractions. Over the years, it
 
 Markdown Exploder is a simple workflow enabled by _python, pandoc, and LaTex_. Sections are written in markdown, organized with a single `sequence.txt` file, and then compiled into a static html page and LaTeX report.
 
-You can see a working version (with a very sparse paper) at [https://capstone.sethangell.com](capstone.sethangell.com)!
+You can see a working version (with a very sparse paper) at [https://capstone.sethangell.com](https://capstone.sethangell.com)!
 
 ## Ideal Workflow
 
