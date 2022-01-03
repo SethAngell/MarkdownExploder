@@ -41,23 +41,6 @@ You can see a working version (with a very sparse paper) at [https://capstone.se
 - Python
 - Jinja
 
-## Running ToDo
-
-- [x] Create directory and Git repository
-- [x] Create README
-- [x] Create Jinja Base Template
-- [x] Create LaTeX Base Template
-- [x] Find and include all commands to install LaTeX into Build container
-- [x] Create python functionality for creating and destroying new directories
-- [x] Create python functionality for ingesting all data from the content directory
-- [x] Create python functionality for calling pandoc commands
-- [x] Create python functionality for concatenating markdown documents into single file
-- [x] Create python functionality for converting all markdown content into LaTeX fragments
-- [x] Create python functionality for compiling LaTeX documents to pdfs
-- [x] Create python functionality for compiling final html
-- [x] BONUS! Dockerfile.Prod which also runs letsencrypt and stores it on the host 
-- [x] BONUS! Github Actions CI to automatically deploy new changes on every push
-
 ## MarkdownExploder Writing Workflow
 ![A state diagram of the intended writing workflow utilizing Markdown Exploder](/app/assets/MarkdownExploderWorkflow.png)
 
