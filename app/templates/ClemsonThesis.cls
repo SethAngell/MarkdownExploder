@@ -74,7 +74,8 @@
 \newcommand{\committeeMemberSix}[1]   {\ifx\empty#1\else \gdef\@ClemsonCommitteeMemberSix{#1}   \fi}
 \renewcommand{\author}[1]             {\ifx\empty#1\else \gdef\@ClemsonAuthor{#1}               \fi}
 \renewcommand{\title}[1]              {\ifx\empty#1\else \gdef\@title{#1}                       \fi}
-
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 %
 % Some commands to get the values of our variables
