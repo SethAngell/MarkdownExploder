@@ -1,86 +1,17 @@
 # Introduction
 
-Mixed Reality has been slowly creeeping it's way into our modern lives
-over the course of the past decade or so, with instances such as Pokemon
-Go garnering half a billion downloads as of 2017. But unique virtual
-experiences aren't the only potential benefit of this new domain. A
-French study found that by integrating experiences similiar to the
-Pokemon Go application, allowed students to connect more deeply with the
-subject they were currently studying [@remmer_why_2017]. The potential
-for use in education seems to be large, but that will not be the only
-area where VR, and more broadly Mixed Reality, make an impact. Meta's
-(previously Facebook) recent announcment and support of the Metaverse
-concept seems to imply that big money is slowly but surely making it's
-way into this field [@metaverse]. As with any expanding domain, there
-will always be issues that need to be ironed out. \[need some sort of
-pivot here into next topic\] In a vein similiar to how computers used to
-take up entire rooms and can now be smaller than a stick of gum, game
-development has only become more accessible to the average person as
-time has gone on. Gone are the days where 3D game development required
-construction of a bespoke physics engine, or a shader library. With the
-advent of software suites such as Unity3D or the Unreal Engine, the
-average consumer can build a 3D experience on the same technology that
-powers Fortnite. But not only is this fantastic news for game
-developers, but with the advent of affordable, consumer ready head
-mounted displays, these same tools can be used to create immersive 3D
-experiences of any sort. Be it educational, informational, directly
-applicable to a business problem, or just for the sake of art. Theres
-not greater example of this than the work happening in UNCW's Mixed
-Reality labs right now. Utilizing the Unity3D engine and an assortment
-of headsets, the lab has put out simulations to educate athletes on the
-effects of heat strokes, teach children miles away from the coast about
-sea turtles, and help government agencies gain insight on how better
-analyze their data. But through all of these projects (most of which are
-still in active development) a reoccuring theme has popped up. While VR
-is an amazing experience, oftentimes there is a lot happening outside of
-the headset that needs to get in. Alongside that, usually there are
-interested parties who would like to know what is happening in
-realitime. While there are platform specfic solutions, we've yet to
-crack a one-size-fits-all solution to allow the outside world a looking
-glass into what's happening behind the VR goggles. That is what this
-proposal sets out to create. [\[needs a lot more info from below, as
-well as citations. Also not sure I love the flow or this content as an
-introduction in general. Will revisit later\]]{style="color: blue"}
+Mixed Reality creeps more and more into daily conversation as time progresses, with systems such as Meta's (previously Facebook) Metaverse becoming a commonplace topic, but the uses of mixed reality experiences extend far outside of the social sphere. Probably one of the most notable instances of it within popular culture would be the explosion of the Augmented Reality application _Pokemon Go_ in 2016. With over half a billion downloads[^PGoStat] the application has no doubt been a success, so much so that it has piqued the interest of educators. A French study found that by integrating experiences similar to the Pokemon Go application, students were able to connect more deeply with the subject they were currently studying. [^PGoStudy] There are 4 widely accepted methods to how people learn: Visual, Auditory, Kinesthetic, and Reading/Writing. [^4TypesOfLearning] Due to environmental, geographic, or other restrictions, some students may find that they're restricted to only one of these teaching types even though they may excel in others. Especially at advanced levels, concepts such as molecular chemistry and orbital mechanics can become incredibly difficult to learn outside of written word or lectures. With the advent of entirely virtual realities, students could step into these previously inaccessible environments. Making the small big and the big small are only one of the areas where mixed reality excels, likewise with education. As the tools for creation improve, so will the opportunity for use. 
 
-1.  Open with information about how VR is a rapidly expanding field,
-    which has also been around for quite some time
+Labs all across the world are working on novel experiences taking advantage of this new technology, including UNCW's very own Mixed Reality lab. Simulations of how to treat heat exhaustion and teach school children about sea turtles are just two of the educational experiences being developed in VR. Extending from that, the lab develops therapeutic virtual environments to help former smokers cope with common triggers, and data visualization tools to help aid projects at Oak Ridge National Labs. The possibilities are limited only by development time, imagination, and the tools at hand.
 
-    -   Pull in something regarding Meta/Metaverse/Oculus (which is eww
-        but also proof that this is definitely a mainstream topic now)
+The biggest catalysts for these advancements have been the release of powerful game engine's such as _Unity3D_ and _Unreal_ for free use, and the development of headsets such as the _Oculus Quest_ and _HTC Vive_ for sale at consumer price points. Whereas previously these experiences and the dev tools needed to create them where reserved only for research labs and AAA game studios, now any average person with a laptop and a small initial investment (~$300) can have access to the same tools as big studios. This change has been instrumental to the space. Much like the introduction of the personal computer, citizens now have access to not just the technology required to experience these simulations, but also the tools required to develop them.
 
-    -   Pull in info about how old VR is
 
-    -   Touch on how VR usually involves a fully enclosed head mounted
-        display (HMD), also touch on recent transition from tethered, to
-        wireless, to fully on device
+That being said, the internet didn't start with capability to build Netflix. As new technology progresses, new problems will need to be solved. One of which has bene regularly encountered in the Mixed Reality Lab here at UNCW. While many types of virtual experiences are possible with these tools, the majority of open source tools on the market are geared towards the entertainment and gaming sector of VR. While these can usually be retrofitted to work in the educational space, some are so gaming centric that the development time required to make them work isn't worth it. However, this doesn't mean that the development time required to create the feature itself is minimal either. One great example of this issue has been synchronous transfer of video and textual data between the headset and an external service. Through the use of HTTP requests and some data structures work, we've developed a system for efficiently loading and displaying photo assets are runtime without crashing the program. However, we've yet to find a solution for streaming an in-game camera in a way that wouldn't require bespoke solutions for each of our projects. 
 
-2.  Briefly touch on Unity3D (also the competitor I can't think of rn)
-    and how they have made game dev so accessible
-
-    -   How easy it is to get started
-
-3.  Do a touch and go on personal background with this topic as an
-    opener for short pitch
-
-    -   VASC and ORNL
-
-    -   How this problem keeps coming up
-
-    -   Technical limitations
-
-4.  Pitch on my problem statement: how do we manage multiple users in a
-    single space effectively?
-
-    -   Don't want to use platform solutions as they lock you into a
-        system + security concerns
-
-    -   Already usually utilizing some sort of webserver to offload
-        processing
-
-    -   Session monitoring platform
-
-        -   Provides scaffolding for two important communication
-            channels
-
-        -   We already have Web Requests, this adds WebRTC +
-            Websockets/RealTimeDB
+That leads to my proposal: A simple two part system which enables the easy creation of a WebRTC stream and Realtime database subscription from a unity client, and a backend system for ingesting said stream as well as broadcasting realtime messages from a database to all subscribed unity clients. This project would be built in a modern, containerized, micro-service architecture to enable rapid deployment as well as the utilization of any of the core features as a standalone component. The creation of this system would allow for multiple team's to integrate realtime streaming of either the player camera or another in game device to external sources, as well as communication with users inside of the headsets - a commonly requested, yet rarely delivered feature request.
+            
+            
+[^PGoStat]: https://sensortower.com/blog/pokemon-go-five-billion-revenue
+[^PGoStudy]: https://dl.acm.org/doi/10.1145/3110292.3110293 
+[^4TypesOfLearning]: https://bau.edu/blog/types-of-learning-styles/
