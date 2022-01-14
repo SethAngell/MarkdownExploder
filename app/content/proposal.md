@@ -222,12 +222,6 @@ and send messages which are delivered to the user in VR.
 ![Example of potential interface for Web
 Client](assets/WebClientMockup.png){width="50%"}
 
-### \[MAYBE\] Load Balancing
-
-ToDo: Touch on how this would be implemented and why. Need to decide
-whether apps can be scaled horizontally by a generic orchestration
-software like kubernetes, or if it should be a bespoke piece directing
-traffic and scaling.
 
 ## Minimum Viable Product
 

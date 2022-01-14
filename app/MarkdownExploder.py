@@ -236,10 +236,11 @@ class MarkdownExploder(object):
         home_content = home_content.replace("<p>", '<p class="content">')
         home_content = home_content.replace("<li>", '<li class="content">')
 
+        home_content = f'<h1>{self.title["title"]}</h1>' + home_content
+
         # Create duplicate version without IDs for mobile view 
         mobile_content = re.sub("id=\"[a-zA-Z0-9]*[ ]*[a-zA-Z0-9]*\"", '', home_content)
-
-        home_content = f'<h1>{self.title["title"]}</h1>' + home_content
+        
         self.logger.debug("[ME] Grabbing template from /templates")
         j_template = ''
         with open('templates/home_template.html', 'r') as ifile:
@@ -277,6 +278,14 @@ class MarkdownExploder(object):
 
         # Create PDF
         # pdflatex -output-directory=DIR -jobname=STRING FILE
+        process = subprocess.Popen(['pdflatex', '-output-directory=assets', 
+                                    '-jobname=SethAngellCapstone', 'templates/capstoneSeth.tex'], 
+                                        stdout=subprocess.PIPE, 
+                                        stderr=subprocess.PIPE)
+
+        self._subprocess_logger(process)
+
+        # Run twice to generate table of contents     
         process = subprocess.Popen(['pdflatex', '-output-directory=assets', 
                                     '-jobname=SethAngellCapstone', 'templates/capstoneSeth.tex'], 
                                         stdout=subprocess.PIPE, 

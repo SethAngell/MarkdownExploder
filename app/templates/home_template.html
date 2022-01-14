@@ -14,9 +14,15 @@
     ></script>
 
     <!-- Styling -->
-    <style>
+    <style scoped>
       .content {
         font-size: 1.5rem;
+      }
+
+      @media (max-width: 500px) {
+        .content {
+          font-size: 1rem;
+        }
       }
     </style>
 
@@ -113,6 +119,8 @@
           overflow-auto
           px-5
         "
+
+        style
       >
         {{ mobile_content | safe }}
       </div>
