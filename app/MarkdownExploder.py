@@ -167,7 +167,8 @@ class MarkdownExploder(object):
         self.logger.debug(f'[ME] Creating master file with name {master_name}')
         with open(master_name, 'w') as outfile:
             for item in self.sequence:
-                outfile.write(f'{self.data[item]}\n')
+                if len(item) > 3:
+                    outfile.write(f'{self.data[item]}\n')
 
         self.logger.info(f'[ME] Created master file containing all MD sections with the name {master_name}')
 
