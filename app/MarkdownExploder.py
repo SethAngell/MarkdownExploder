@@ -235,6 +235,8 @@ class MarkdownExploder(object):
 
         home_content = home_content.replace("<p>", '<p class="content">')
         home_content = home_content.replace("<li>", '<li class="content">')
+        home_content = home_content.replace("<ul>", '<ul class="content">')
+        home_content = home_content.replace("<table>", '<table class="table-content">')
 
         home_content = f'<h1>{self.title["title"]}</h1>' + home_content
 
