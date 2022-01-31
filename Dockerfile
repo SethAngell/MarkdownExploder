@@ -32,5 +32,6 @@ FROM nginx:latest
 
 COPY ./app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /usr/src/app /usr/share/nginx/html
+COPY --from=build /usr/src/app/assets/favicon.ico /usr/share/nginx/html/favicon.ico
 
 
