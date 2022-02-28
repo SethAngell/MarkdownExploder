@@ -9,7 +9,7 @@ as well as a communication channel for the synchronous transfer of
 information back and forth. Piece 1 will consist of a Unity package with
 simple configuration parameters to allow for a connection to be made
 back to the web service. This Unity package will contain scripts to
-attach to an in-scene camera as well as a blank gameobject to act as
+attach to an in-scene camera as well as a blank GameObject [^gameobject] to act as
 hooks for the WebRTC and Messaging system. Piece 2 will be a web service
 with a microservice based architecture, capable of providing 4 specific
 services: User management, realtime messaging, WebRTC relay, and a
@@ -27,7 +27,7 @@ chapter will contain in-depth documentation.
 
 **Features:**
 
--   A plug and play unity packages that attaches to a camera in scene
+-   A turnkey unity package that attaches to a camera in scene
     and instantiates a game object which will provide a listener hook to
     be alerted if any new messages come through.
 
@@ -41,61 +41,43 @@ chapter will contain in-depth documentation.
     to connect to the web service without any additional login
     information
 
--   A WebRTC media server to act as a p2p relay for all transmitted
+-   A WebRTC media server to act as a peer-to-peer relay for all transmitted
     video. Should leave hooks in for media manipulation as well as
     capture.
 
 -   A Realtime Database (Open Source Supabase)[^1] for message
     broadcasting
 
--   A simple web application for testing that allows for the displaying
+-   A simple web application for testing that allows for the display
     of a unity client and a text box for sending messages to said client
 
-## The Whys
+## Technology Stack Justification
 
 A lot of decisions have been made early on which at first glance may
 seem questionable, it's important that some justification is given for
 them out front.
 
-### Why Python? (and Django??)
+### Ease Of Development: An argument for Python, Django, and Flask
 
--   This is a system built for work done in the lab. In the past, the
-    primary point of hire is shortly after completing CSC231. As of
-    2021, CSC131 and CSC231 are taught in Python. Since it is useful to
-    get early insight on whether a new candidate has strong long term
-    potential, having a system built in a language they're comfortable
-    with will reduce the onboarding time it takes to assign them their
-    first task.
+The entirety of the web based component will be built using Python and two of its' most popular web frameworks: Django and Flask. This may seem odd, seeing as how Python is widely considered to be a slow language (largely due to its' implementation details [^SlowPython]). Considering so many of the mentioned tasks are speed and resource sensitive, it bears some explanation as to why this project would chose Python for the implementation. There are a number of key reasons which primarily boil down to the developer experience.
 
--   Python is batteries included and has a huge developer community.
-    From an efficiency standpoint, writing this in golang, .Net, C, or
-    really any other compiled language would most likely show strong
-    improvements. However for a minimum viable product, python would be
-    the fasted language to iterate in and try new things out.
+Firstly, this is a system built for work done in the Mixed Reality lab. In the past, the primary point of hire is shortly after completing CSC231. As of Spring 2021, CSC131 and CSC231, the first two courses in the development track within UNCW's computer science degree, are taught in Python. Oftentimes, Students are completing CSC231 within the first 2 years of their program, meaning there is a substantial amount of time left for them to be productive members of the lab before they complete their degree. 
 
--   Django is an established framework powering sites as large as
-    instagram.com[^2], it is also what we've been using in the lab for
-    the past 2 years. It does come with a learning curve, but similiar
-    to python itself also includes a lot of niceties that makes writing
-    web applications easier. Add in the fantastic Django-Rest-Framework
-    library and the decision is easy.
+Since it is useful to get early insight on whether a new candidate has strong long term potential, having a system built in a language they're comfortable with will reduce the onboarding time it takes to assign them their first task. This could be the difference between finding out a student is a strong hire within the course of a semester long directed independent study, or after a year of learning and tutorials in a brand new language and system. By creating a system in a commonly understood language, new hires can hit the ground running and provide meaningful contributions to the project while they take the time to learn the other languages required for our projects.
 
-### Why Microservices?
+Secondly, Python is "batteries included" [^ComputingIntroduction] and has a huge developer community [^StackOverFlowSurvey]. From an efficiency standpoint, writing this in golang, .Net, C, or really any other compiled language would most likely show strong improvements. However for a minimum viable product, python would be the fastest language to iterate in and try new things out.
 
--   It enforces well documented inputs and outputs as well as behavious.
-    Since microservices are supposed to communicate using external
-    messaging formats as opposed to directly calling code, you're forced
-    to be more fine-grained with your endpoints.
+Finally, Django is an established framework powering sites as large as instagram.com[^2], it is also what we've been using in the lab for the past 2 years. It does come with a learning curve, but similar to python itself, includes a lot of niceties that makes writing web applications easier. Many of which we will utilize such as their User model complete with authentication and session management. Add in the fantastic Django-Rest-Framework library and the decision is easy.
 
--   Since the inputs and outputs are well defined, and the services run
-    independently, youre microservices stack can run on multiple
-    languages, allowing you to select the best tool for the job.
+### Deconstructing The Monolith: Why Microservices?
 
--   It allows for easy upgrading. If we find that as the userbase grows,
-    the WebRTC implementation in python isn't scaling well, as long as
-    we honor the previous API spec we can drop in a new GoLang
-    implementation with almost no downtime or rewrites of other services
-    required.
+Microservice architectures introduce a non-trivial amount of complexity. Rather than making use of functionality with internal function calls, things which used to be separated by a directory are now separated by a router. This can have drawbacks, such as a degradation of service during network outages, duplication of similar efforts across services, and the introduction of architectural complexity. 
+
+That being said, especially in a project like this, there are some arguments as to why one would utilize this model. Right off the bat, it enforces well documented inputs and outputs as well as behaviors. Since microservices are supposed to communicate using external messaging formats as opposed to directly calling code, you're forced to be more fine-grained with your endpoints. Unlike within in a monolith where one can jump over to the file and read the entire function definition, microservices are intended to be accessed using their publicly available API. This can serve as an additional step within the separation of concerns, even more enforceable than something like Interfaces within a monolith. While this project will begin as a single developer effort, if used in the future it could be worked on by a number of developers. Clearly outlining the inputs and outputs now can help establish a system with low coupling and high cohesion [^LCHC].
+
+Another huge benefit of microservices with clearly defined inputs and outputs is the ability to mix and match languages. Unlike a monolith in which languages would need to call executables directly, or implement a wrapper of some sorts, microservices can instead simply define a common messaging format. As long as all members adhere to said format (HTTP and RestAPI's in our case) they need not be aware of each other's implementation details. This allows one to select the best tool for the job.
+
+This trait allows for easy upgrading. If we match the previous API spec exactly, we could drop in the new implementation of one of our services in as little time as it takes to spin down and spin up a new docker container. So, harkening back to the statement earlier that compiled languages may be a better option, if we find in the future that the Django Auth API works fine, but the WebRTC server needs more horsepower we can do just that. Reimplement the spec in Go, change the docker-compose to spin up the new container, rebuild, and we're back in business. 
 
 ### Why Docker?
 
@@ -297,10 +279,12 @@ This whole section is basically intended to capture any other important
 diagrams or documentations that will help explain the project.
 
 [^1]: https://supabase.com
-
 [^2]: https://instagram-engineering.com/web-service-efficiency-at-instagram-with-python-4976d078e366
-
 [^3]: see
     https://docs.unity3d.com/Packages/com.unity.webrtc\@2.4/manual/index.html
-
 [^4]: https://github.com/aiortc/aiortc
+[^gameobject]: https://docs.unity3d.com/Manual/class-GameObject.html
+[^SlowPython]: http://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/
+[^StackOverflowSurvey]: https://insights.stackoverflow.com/survey/2021#most-popular-technologies-language
+[^ComputingIntroduction]: https://www.computer.org/csdl/magazine/cs/2007/03/c3007/13rRUzpQPH7
+[^LCHC]: https://medium.com/clarityhub/low-coupling-high-cohesion-3610e35ac4a6
